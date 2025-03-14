@@ -5,6 +5,161 @@ import shap
 import pandas as pd
 import matplotlib.pyplot as plt
 
+st.markdown(
+    """
+    <style>
+    /* Make the top header bar transparent */
+    header[data-testid="stHeader"] {
+        background: rgba(0, 0, 0, 0) !important;  /* Fully transparent */
+    }
+    
+    /* Hide the whitespace at the top */
+    .st-emotion-cache-1v0mbdj {
+        background: rgba(0, 0, 0, 0) !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+import streamlit as st
+import base64
+
+# ✅ Convert Local Image to Base64
+def get_image_base64(image_path):
+    with open(image_path, "rb") as f:
+        encoded_string = base64.b64encode(f.read()).decode()
+    return f"data:image/png;base64,{encoded_string}"
+
+# ✅ Provide Your Local Logo Path Here
+LOCAL_LOGO_PATH = r"C:\Users\HP\Desktop\CENTRALE\image001.png"  # Change this to your logo path
+logo_base64 = get_image_base64(LOCAL_LOGO_PATH)
+
+# ✅ Custom CSS to Fix Logo in the Top Left Corner (Smaller & Well Positioned)
+st.markdown(
+    f"""
+    <style>
+    .top-left-logo {{
+        position: fixed;
+        top: 10px;    /* Adjust vertical position */
+        left: 10px;   /* Adjust horizontal position */
+        width: 100px;  /* Make it smaller */
+        height: auto;  /* Maintain aspect ratio */
+        z-index: 999;
+    }}
+    </style>
+
+    <img src="{logo_base64}" class="top-left-logo">
+    """,
+    unsafe_allow_html=True
+)
+
+
+
+
+st.markdown("""
+    <style>
+    .blurred-box {
+        background: rgba(255, 255, 255, 0.2); /* Glass effect */
+        backdrop-filter: blur(12px); /* Blur */
+        padding: 20px; 
+        border-radius: 15px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+    <style>
+    /* Left Footer - Coding Week & Developers */
+    .left-footer {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        background: rgba(0, 0, 0, 0.8); /* Dark background */
+        color: white;
+        padding: 15px 20px;
+        border-radius: 15px;
+        font-size: 16px;
+        line-height: 1.8;
+        font-weight: bold;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: left;
+        width: 300px; /* Adjust width */
+    }
+
+    /* Right Footer - Contact Information */
+    .right-footer {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.8); /* Dark background */
+        color: white;
+        padding: 15px 20px;
+        border-radius: 15px;
+        font-size: 16px;
+        line-height: 1.8;
+        font-weight: bold;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: left;
+        width: 370px; /* Adjust width */
+    }
+
+    .left-footer a, .right-footer a {
+        color: #00A2FF; /* Light blue links */
+        text-decoration: none;
+        font-weight: normal;
+    }
+
+    .left-footer a:hover, .right-footer a:hover {
+        text-decoration: underline;
+    }
+
+    .footer-title {
+        font-size: 18px;
+        font-weight: bold;
+        display: block;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+    </style>
+
+    <!-- Left Footer -->
+    <div class='left-footer'>
+        <div class='footer-title'>© Coding Week 2025</div>
+        Developed by:<br>
+        Ilyas, Doha, Hajar, Meriem, Hiba
+    </div>
+
+    <!-- Right Footer -->
+    <div class='right-footer'>
+        <div class='footer-title'>📧 Contact 📧</div>
+        <b>Ilyas</b> (<a href="mailto:Ilyas.BAJJA@centrale-casablanca.ma">Ilyas.BAJJA@centrale-casablanca.ma</a>)<br>
+        <b>Doha</b> (<a href="mailto:Douha.MAJRI@centrale-casablanca.ma">Douha.MAJRI@centrale-casablanca.ma</a>)<br>
+        <b>Hajar</b> (<a href="mailto:Hajar.NAJIB@centrale-casablanca.ma">Hajar.NAJIB@centrale-casablanca.ma</a>)<br>
+        <b>Meriem</b> (<a href="mailto:Meriem.LAAROUSSI@centrale-casablanca.ma">Meriem.LAAROUSSI@centrale-casablanca.ma</a>)<br>
+        <b>Hiba</b> (<a href="mailto:Hiba.CHUIMI@centrale-casablanca.ma">Hiba.CHUIMI@centrale-casablanca.ma</a>)
+    </div>
+""", unsafe_allow_html=True)
+
+
+# ✅ Force Streamlit to Use the Full Page Width
+st.markdown(
+    """
+    <style>
+    /* Make Streamlit use the full width */
+    .main .block-container {
+        max-width: 100% !important;  /* Full width */
+        padding-left: 1rem !important;  /* Reduce side padding */
+        padding-right: 1rem !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+
 # 🎯 Load trained model & encoders
 MODEL_PATH = r"C:\Users\HP\Documents\GitHub\Coding-week-test\notebooks\model.pkl"
 SHAP_PATH = r"C:\Users\HP\Documents\GitHub\Coding-week-test\notebooks\shap_explainer.pkl"
@@ -43,7 +198,11 @@ def add_bg_from_local(image_path):
 # Apply background
 add_bg_from_local(BACKGROUND_PATH)
 
+
+
+
 # ✅ Apply CSS for Blurred Background for UI Sections
+
 st.markdown(
     """
     <style>
@@ -86,7 +245,7 @@ with col2:
     tue = st.slider("📱 Time Using Technology (TUE)", min_value=0.0, max_value=10.0, value=2.0, step=0.01)
 
 # ✅ Create Three Columns (Left, Middle for Lifestyle & Habits, Right)
-col1, col2, col3 = st.columns([4, 6, 4])  # Middle column is wider
+col1, col2, col3 = st.columns([1, 6, 1])  # Middle column is wider
 
 # 🎯 Middle Column: Lifestyle & Habits
 with col2:
@@ -117,9 +276,12 @@ input_data = np.array([[gender_map[gender], age, height, weight,
                         faf, tue, calc_map[calc], mtrans_map[mtrans]]])
 
 # ✅ Prediction Button
-if st.button("🔍 Predict Obesity Level & View Results"):
-    st.session_state["prediction_triggered"] = True  # ✅ Save state to show results
+with col2:
+    st.markdown("<h3 style='text-align: center;'>🔍 Prediction</h3>", unsafe_allow_html=True)
 
+    if st.button("🔍 Predict Obesity Level & View Results"):
+        st.session_state["prediction_triggered"] = True  # ✅ Save state to show results
+        
 coded = {
     'Insufficient Weight': 0, 'Normal Weight': 1, 'Overweight Level I': 2, 
     'Overweight Level II': 3, 'Obesity Type I': 4, 'Obesity Type II': 5, 'Obesity Type III': 6
@@ -128,17 +290,17 @@ coded = {
 # ✅ Show Results Below the Button
 if st.session_state.get("prediction_triggered", False):
     st.markdown("---")
-    st.markdown("<h3>📊 Prediction Results</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>📊 Prediction Results</h3>", unsafe_allow_html=True)
 
     # 🎯 Prediction Display
     prediction = model.predict(input_data)[0]
     predicted_label = next(k for k, v in coded.items() if v == prediction)
 
-    st.markdown(f"<h3 style='color:green;'>🩺 Prediction: {predicted_label}</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h3 style='color:green;'>🩺 The patient has : {predicted_label}</h3>", unsafe_allow_html=True)
 
     
     # SHAP Explanation
-    st.subheader("🧐 Why This Prediction?")
+    st.markdown("---")
 
     feature_names = [
             "Gender", "Age", "Height", "Weight", "Family History", "FAVC",
@@ -146,6 +308,8 @@ if st.session_state.get("prediction_triggered", False):
 
     shap_values = explainer.shap_values(input_data)
     # ✅ Apply Full-Width CSS
+    
+    
     # 🎯 SHAP Explanation Section
     st.subheader("📊 SHAP Explanation - Feature Importance")
 
@@ -155,9 +319,13 @@ if st.session_state.get("prediction_triggered", False):
     shap.summary_plot(shap_values, pd.DataFrame(input_data, columns=feature_names), show=False)
     st.pyplot(plt)
 
+    col_1, col_2 = st.columns([1, 1])  # Two equal sections
+
+
 # ✅ Explanation Below the Graph (Restored)
-    with st.expander("🔍 Understanding the Graph", expanded=False):
-        st.markdown("""
+    with col_1:
+        with st.expander("🔍 Understanding the Graph", expanded=False):
+            st.markdown("""
 ### 🔍 Key Components of the Graph:
 1️⃣ **X-Axis (SHAP Value)**
 - **Negative values (left)**: The feature decreases the obesity level prediction.
@@ -172,8 +340,9 @@ if st.session_state.get("prediction_triggered", False):
 """, unsafe_allow_html=True)
 
 # ✅ Feature Legend Below the Explanation (Well-Formatted)
-    with st.expander("📌 Feature Legend", expanded=False):
-        legend_dict = {
+    with col_2:
+        with st.expander("📌 Feature Legend", expanded=False):
+            legend_dict = {
     "FAVC": "Do you eat high-calorie food frequently?",
     "FCVC": "Do you usually eat vegetables in your meals?",
     "NCP": "How many main meals do you have daily?",
@@ -188,8 +357,8 @@ if st.session_state.get("prediction_triggered", False):
 }
 
 # ✅ Display the legend properly formatted below the explanation
-        for key, value in legend_dict.items():
-            st.markdown(f"- **{key}**: {value}")
+            for key, value in legend_dict.items():
+                st.markdown(f"- **{key}**: {value}")
 
     
     # ✅ Feedback Section for Doctor
@@ -209,3 +378,4 @@ if st.session_state.get("prediction_triggered", False):
             st.success("✅ Thank you! Your feedback has been recorded.")
         except Exception as e:
             st.error(f"⚠️ Error saving feedback: {e}")
+
