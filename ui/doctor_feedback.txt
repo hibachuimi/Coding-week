@@ -1,2 +1,0 @@
-Prediction: 1 | Doctor Feedback: ❌ No, it was incorrect | Correction: it's supposed to be bla bla bla
-Prediction: Normal Weight | Doctor Feedback: ✅ Yes, it was correct | Correction: N/A
